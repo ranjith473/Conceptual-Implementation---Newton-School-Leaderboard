@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.get("/topRankings", async (req, res) => {
   const offset = getValue(req.query.offset, 0);
-  const limit = getValue(req.query.limit, 20);
+  const limit = getValue(req.query.limit, 20) + offset;
   const dataToSend = await data.slice(offset, limit);
   console.log(dataToSend);
   res.send(dataToSend);
@@ -23,7 +23,7 @@ app.get("/topRankings", async (req, res) => {
 
 const getValue = (value, defaultValue) => {
   if (value === null || value === undefined || isNaN(Number(value))) {
-    return Value;
+    return defaultValue;
   }
   return Number(value);
 };
