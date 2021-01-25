@@ -15,10 +15,18 @@ app.use(bodyParser.json());
 
 app.get("/topRankings", async (req, res) => {
   const offset = getValue(req.query.offset, 0);
-  const limit = getValue(req.query.limit, 20) + offset;
+  const limit = getValue(req.query.limit, 20);
   const dataToSend = await data.slice(offset, limit);
   console.log(dataToSend);
   res.send(dataToSend);
 });
+
+const getValue = (value, defaultValue) => {
+  if (value === null || value === undefined || isNaN(Number(value))) {
+    return Value;
+  }
+  return Number(value);
+};
 app.listen(port, () => console.log(`App listening on port ${port}!`));
+
 module.exports = app;
